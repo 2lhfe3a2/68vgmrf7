@@ -1,0 +1,21 @@
+$mkdir /(nameofdirectory)
+#Creates a directory for your project called "Hello-World" in your user directory
+
+$cd /(nameofdirectory)
+Changes the current working directory to your newly created directory
+
+$git init
+#Sets up the necessary git files
+
+$git add (filename)
+#Stages the specific (filename), adding it to the list of files to be commited
+
+$git commit -m '(random message)'
+#Commits the files, adding the specific message
+
+$git remote add origin https://github.com/username/nameofrepository
+#Creates a remote named "origin" pointing at your GitHub repository
+
+$git push origin master
+#Sends your commits in the "master" branch to GitHub
+

